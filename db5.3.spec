@@ -18,10 +18,10 @@ Version:	%{ver}.%{patchlevel}
 Release:	1
 License:	BSD-like (see LICENSE)
 Group:		Libraries
-#Source0Download: http://www.oracle.com/technetwork/database/berkeleydb/downloads/index.html
+#Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 # Source0-md5:	5493fb5f7cc3915887c836b096f18773
-URL:		http://www.oracle.com/technetwork/database/berkeleydb/downloads/index.html
+URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 BuildRequires:	automake
 %if %{with java}
 BuildRequires:	jdk
