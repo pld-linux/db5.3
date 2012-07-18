@@ -3,13 +3,14 @@
 %bcond_without	java		# don't build Java bindings
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
+%bcond_with	sqlite3		# build Sqlite3 API libraries
 %bcond_with	default_db	# use this db as default system db
 
 %include	/usr/lib/rpm/macros.java
 
 %define		major		5
 %define		libver		%{major}.3
-%define		ver		%{libver}.15
+%define		ver		%{libver}.21
 %define		patchlevel	0
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
@@ -20,7 +21,7 @@ License:	BSD-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
-# Source0-md5:	5493fb5f7cc3915887c836b096f18773
+# Source0-md5:	3fda0b004acdaa6fa350bfc41a3b95ca
 URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 BuildRequires:	automake
 %if %{with java}
@@ -414,7 +415,7 @@ cd build_unix
 	--enable-build_dbm \
 	--enable-posixmutexes \
 	--enable-sql \
-	--enable-sql_compat \
+	%{?with_sqlite3:--enable-sql_compat} \
 	--enable-sql_codegen \
 	--enable-stl \
 	%{?with_java:--enable-java} \
@@ -693,6 +694,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/dbstl_utility.h
 %{_includedir}/dbstl_vector.h
 
+%if %{with sqlite3}
 %files sqlite3
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/sqlite3
@@ -702,6 +704,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libsqlite3.la
 %{_includedir}/sqlite3.h
+%endif
 
 %files utils
 %defattr(644,root,root,755)
