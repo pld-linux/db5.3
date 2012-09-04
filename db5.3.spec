@@ -4,7 +4,7 @@
 %bcond_without	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	sqlite3		# build Sqlite3 API libraries
-%bcond_with	default_db	# use this db as default system db
+%bcond_without	default_db	# don't use this db as default system db [Th uses DB 5.3]
 
 %include	/usr/lib/rpm/macros.java
 
