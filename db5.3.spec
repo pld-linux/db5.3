@@ -23,6 +23,8 @@ Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 # Source0-md5:	3fda0b004acdaa6fa350bfc41a3b95ca
+Patch0:		%{name}-link.patch
+Patch1:		%{name}-sql-features.patch
 URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 BuildRequires:	automake
 %if %{with java}
@@ -245,7 +247,7 @@ Pliki programistyczne biblioteki db-tcl.
 Summary:	SQL layer for Berkeley database library
 Summary(pl.UTF-8):	Wartstwa SQL dla biblioteki baz danych Berkeley
 Group:		Libraries
-%if %{with default_bd}
+%if %{with default_db}
 Provides:	db-sql = %{version}-%{release}
 %endif
 
@@ -260,7 +262,7 @@ Summary:	Development files for db-sql library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki db-sql
 Group:		Development/Libraries
 Requires:	%{name}-sql = %{version}-%{release}
-%if %{with default_bd}
+%if %{with default_db}
 Provides:	db-sql-devel = %{version}-%{release}
 Obsoletes:	db-sql-devel
 %endif
@@ -368,6 +370,8 @@ poleceń.
 
 %prep
 %setup -q -n db-%{ver}
+%patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub dist

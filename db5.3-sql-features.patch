@@ -1,0 +1,11 @@
+--- db-5.3.21/dist/Makefile.in.orig	2012-05-11 19:57:48.000000000 +0200
++++ db-5.3.21/dist/Makefile.in	2013-06-09 10:32:16.358179710 +0200
+@@ -106,7 +106,7 @@
+ # SQL support is optional, and can be built with static or shared libraries.
+ ##################################################
+ SQLFLAGS=	-I$(builddir) -I$(builddir)/sql -I$(langdir)/sql/generated \
+-		-D_HAVE_SQLITE_CONFIG_H @SQL_FLAGS@
++		-D_HAVE_SQLITE_CONFIG_H @SQL_FLAGS@ -DSQLITE_ENABLE_COLUMN_METADATA=1
+ 
+ libsql_base=	libdb_sql
+ libsql=		$(libsql_base).a
