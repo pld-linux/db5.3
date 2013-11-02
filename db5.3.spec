@@ -11,18 +11,18 @@
 
 %define		major		5
 %define		libver		%{major}.3
-%define		ver		%{libver}.21
+%define		ver		%{libver}.28
 %define		patchlevel	0
 Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db5.3
 Version:	%{ver}.%{patchlevel}
-Release:	2
+Release:	1
 License:	BSD-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
-# Source0-md5:	3fda0b004acdaa6fa350bfc41a3b95ca
+# Source0-md5:	b99454564d5b4479750567031d66fe24
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-sql-features.patch
 URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
