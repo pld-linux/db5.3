@@ -17,7 +17,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db5.3
 Version:	%{ver}.%{patchlevel}
-Release:	3
+Release:	4
 License:	BSD-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
@@ -25,6 +25,7 @@ Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 # Source0-md5:	b99454564d5b4479750567031d66fe24
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-sql-features.patch
+Patch2:		db-5.3.28-cwd-db_config.patch
 URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 BuildRequires:	automake
 %if %{with java}
@@ -372,6 +373,7 @@ poleceń.
 %setup -q -n db-%{ver}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cp -f /usr/share/automake/config.sub dist
