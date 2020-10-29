@@ -26,6 +26,7 @@ Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-sql-features.patch
 Patch2:		db-5.3.28-cwd-db_config.patch
+Patch3:		%{name}-atomic_compare_exchange.patch
 URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 BuildRequires:	automake
 %if %{with java}
@@ -374,6 +375,7 @@ poleceń.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 cp -f /usr/share/automake/config.sub dist
