@@ -7,8 +7,6 @@
 %bcond_without	default_db	# don't use this db as default system db [Th uses DB 5.3]
 %bcond_without	rpm_db		# install library to rootfs for /bin/rpm
 
-%{load:/usr/lib/rpm/macros.d/java}
-
 %define		major		5
 %define		libver		%{major}.3
 %define		ver		%{libver}.28
@@ -17,7 +15,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db5.3
 Version:	%{ver}.%{patchlevel}
-Release:	5
+Release:	6
 License:	BSD-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
