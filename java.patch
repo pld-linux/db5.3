@@ -1,0 +1,22 @@
+--- db-5.3.28/dist/configure.ac~	2013-09-09 17:35:02.000000000 +0200
++++ db-5.3.28/dist/configure.ac	2021-11-23 23:28:43.662988948 +0100
+@@ -454,7 +454,7 @@
+ 	esac
+ 	AC_MSG_RESULT($JAVA_VERSION)
+ 	case "$JAVA_VERSION" in
+-	1.[[3456789]]* | 1.[[1-9]][[0-9]]* | [[23456789]]* ) ;;
++	1.[[3456789]]* | 1.[[1-9]][[0-9]]* | [[23456789]]* | 1[[0-9]]* ) ;;
+ 	* )
+ 		AC_MSG_ERROR([Java version 1.3 or higher required, got $JAVA_VERSION]) ;;
+ 	esac
+--- db-5.3.28/dist/configure~	2013-09-09 17:35:02.000000000 +0200
++++ db-5.3.28/dist/configure	2021-11-23 23:34:30.893923681 +0100
+@@ -18475,7 +18475,7 @@
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $JAVA_VERSION" >&5
+ $as_echo "$JAVA_VERSION" >&6; }
+ 	case "$JAVA_VERSION" in
+-	1.[3456789]* | 1.[1-9][0-9]* | [23456789]* ) ;;
++	1.[3456789]* | 1.[1-9][0-9]* | [23456789]* | 1[0-9]* ) ;;
+ 	* )
+ 		as_fn_error $? "Java version 1.3 or higher required, got $JAVA_VERSION" "$LINENO" 5 ;;
+ 	esac
