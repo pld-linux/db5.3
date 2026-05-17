@@ -15,7 +15,7 @@ Summary:	Berkeley DB database library for C
 Summary(pl.UTF-8):	Biblioteka C do obsługi baz Berkeley DB
 Name:		db5.3
 Version:	%{ver}.%{patchlevel}
-Release:	8
+Release:	9
 License:	BSD-like (see LICENSE)
 Group:		Libraries
 #Source0Download: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
@@ -23,9 +23,28 @@ Source0:	http://download.oracle.com/berkeley-db/db-%{ver}.tar.gz
 # Source0-md5:	b99454564d5b4479750567031d66fe24
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-sql-features.patch
-Patch2:		db-5.3.28-cwd-db_config.patch
-Patch3:		%{name}-atomic_compare_exchange.patch
-Patch4:		java.patch
+Patch2:		java.patch
+Patch3:		db_version.patch
+Patch4:		tls.patch
+# Patches from Fedora
+Patch100:	db-5.3.21-memp_stat-upstream-fix.patch
+Patch101:	db-5.3.21-mutex_leak.patch
+Patch102:	db-5.3.28-lemon_hash.patch
+Patch103:	db-5.3.28-condition_variable.patch
+Patch104:	db-5.3.28-cwd-db_config.patch
+Patch105:	libdb-5.3.21-region-size-check.patch
+Patch106:	checkpoint-opd-deadlock.patch
+Patch107:	db-5.3.28-atomic_compare_exchange.patch
+Patch108:	libdb-cbd-race.patch
+Patch109:	libdb-limit-cpu.patch
+Patch110:	libdb-5.3.21-trickle_cpu.patch
+Patch111:	db-5.3.28_cve-2019-2708.patch
+Patch112:	db-5.3.28-mmap-high-cpu-usage.patch
+Patch113:	libdb-c99.patch
+Patch114:	libdb-configure-c99.patch
+Patch115:	libdb-sqlite-c99.patch
+Patch116:	libdb-sqlite-tcl8.patch
+
 URL:		http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
 BuildRequires:	automake
 %if %{with java}
@@ -33,7 +52,7 @@ BuildRequires:	jdk
 BuildRequires:	rpm-javaprov
 %endif
 BuildRequires:	libstdc++-devel
-BuildRequires:	rpmbuild(macros) >= 1.426
+BuildRequires:	rpmbuild(macros) >= 2.043
 BuildRequires:	sed >= 4.0
 %{?with_tcl:BuildRequires:	tcl-devel >= 8.4.0}
 Requires:	uname(release) >= 2.6.0
@@ -377,6 +396,23 @@ poleceń.
 %patch -P3 -p1
 %patch -P4 -p1
 
+%patch -P100 -p1
+%patch -P101 -p1
+%patch -P102 -p1
+%patch -P103 -p1
+%patch -P105 -p1
+%patch -P106 -p1
+%patch -P107 -p1
+%patch -P108 -p1
+%patch -P109 -p1
+%patch -P110 -p1
+%patch -P111 -p1
+%patch -P112 -p1
+%patch -P113 -p1
+%patch -P114 -p1
+%patch -P115 -p1
+%patch -P116 -p1
+
 %build
 cp -f /usr/share/automake/config.sub dist
 cp -f /usr/share/automake/config.sub lang/sql/sqlite
@@ -384,19 +420,27 @@ cp -f /usr/share/automake/config.sub lang/sql/sqlite
 JAVACFLAGS="-source 1.6 -target 1.6"
 export JAVACFLAGS
 
+cd dist
+%{__aclocal}
+%{__autoconf}
+./s_config
+cd ..
+
+%define configuredir ../dist/
+
+CC="%{__cc}"
+CXX="%{__cxx}"
+CFLAGS="%{rpmcflags} -std=gnu99"
+CXXFLAGS="%{rpmcflags} -fno-implicit-templates"
+LDFLAGS="%{rpmcflags} %{rpmldflags}"
+export CC CXX CFLAGS CXXFLAGS LDFLAGS
+
 %if %{with static_libs}
 cp -a build_unix build_unix.static
 
 cd build_unix.static
 
-CC="%{__cc}"
-CXX="%{__cxx}"
-CFLAGS="%{rpmcflags}"
-CXXFLAGS="%{rpmcflags} -fno-implicit-templates"
-LDFLAGS="%{rpmcflags} %{rpmldflags}"
-export CC CXX CFLAGS CXXFLAGS LDFLAGS
-
-../dist/%configure \
+%configure \
 	--disable-shared \
 	--enable-static \
 	--enable-compat185 \
@@ -414,7 +458,7 @@ cd ..
 
 cd build_unix
 
-../dist/%configure \
+%configure \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--enable-shared \
