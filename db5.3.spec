@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	java		# don't build Java bindings
-%bcond_without	tcl		# don't build Tcl bindings
+%bcond_with	tcl		# don't build Tcl bindings
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	sqlite3		# build Sqlite3 API libraries
 %bcond_without	default_db	# don't use this db as default system db [Th uses DB 5.3]
